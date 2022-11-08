@@ -6,7 +6,7 @@ public class Target : MonoBehaviour
 {
     public int PointValue = 1;
 
-    public float MinSpeed = 10;
+    public float MinSpeed = 15;
 
     public float MaxSpeed = 20;
 
