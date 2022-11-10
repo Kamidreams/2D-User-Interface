@@ -6,18 +6,22 @@ public class Target : MonoBehaviour
 {
     public int PointValue = 1;
 
-    public float MinSpeed = 12;
+    public float MinSpeed = 10;
 
-    public float MaxSpeed = 15;
+    public float MaxSpeed = 20;
 
     public float MaxTorque = 10;
     
     private Rigidbody2D _targetRB;
 
+    private GameManager _gameManager;
+
     // Start is called before the first frame update
     void Start()
     {
         _targetRB = GetComponent<Rigidbody2D>();
+        _gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+
         // _targetRB.AddForce(Vector2.up * MinSpeed, ForceMode2D.Impulse);
         _targetRB.AddForce(Vector2.up * RandomizeForce(), ForceMode2D.Impulse); //impulse starts right away
         //_targetRB.AddTorque(MaxTorque);
@@ -38,5 +42,20 @@ public class Target : MonoBehaviour
     private float RandomizeTorque()
     {
         return Random.Range(-MaxTorque, MaxTorque);
+    }
+
+    private void OnMouseDown() 
+    {
+        Destroy(this.gameObject);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Destroy(this.gameObject);
+        if(!other.gameObject.CompareTag("Bad")) // ! = opposite of "Bad" tag
+        {
+            //Debug.Log("Game Over");
+            _gameManager.IsGameActive = false;
+        }
     }
 }
