@@ -46,12 +46,15 @@ public class Target : MonoBehaviour
 
     private void OnMouseDown() 
     {
+        Debug.Log("You clicked on " + gameObject.name);
+        _gameManager.UpdateScore(PointValue);
         Destroy(this.gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         Destroy(this.gameObject);
+        
         if(!other.gameObject.CompareTag("Bad")) // ! = opposite of "Bad" tag
         {
             //Debug.Log("Game Over");
