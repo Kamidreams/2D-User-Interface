@@ -53,12 +53,13 @@ public class Target : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Destroy(this.gameObject);
+        //Debug.Log("block name" + gameObject.name);
+       Destroy(this.gameObject);
         
-        if(!other.gameObject.CompareTag("Bad")) // ! = opposite of "Bad" tag
+        if(!gameObject.CompareTag("Bad")) // ! = opposite of "Bad" tag
         {
             //Debug.Log("Game Over");
-            _gameManager.IsGameActive = false;
+            _gameManager.GameOver();
         }
     }
 }
