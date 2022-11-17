@@ -10,10 +10,12 @@ public class GameManager : MonoBehaviour
 {
     public bool IsGameActive = false; //public bool IsGameActive;
     public int Score = 0;
+    public int SpawnRate = 1;
     public TextMeshProUGUI ScoreText;
-    public TextMeshProUGUI GameTitleText;
+    //public TextMeshProUGUI GameTitleText;
     public TextMeshProUGUI GameOverText;
-    public Button StartButton;
+    //public Button StartButton;
+    public GameObject StartScene;
     public Button RestartButton;
     public List<GameObject> Target;
     
@@ -23,13 +25,15 @@ public class GameManager : MonoBehaviour
         //IsGameActive = false;
     }
 
-    public void StartGame()
+    public void StartGame(int Difficulty)
     {
-        GameTitleText.gameObject.SetActive(false);
-        StartButton.gameObject.SetActive(false);
+        //GameTitleText.gameObject.SetActive(false);
+        //StartButton.gameObject.SetActive(false);
+        StartScene.gameObject.SetActive(false);
         ScoreText.gameObject.SetActive(true);
         IsGameActive = true;
         ScoreText.text = "Score: " + Score;
+        SpawnRate /= Difficulty;
         StartCoroutine(SpawnTarget());
     }
      public void UpdateScore(int addToScore)
@@ -55,7 +59,7 @@ public class GameManager : MonoBehaviour
     {
         while(IsGameActive)
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(SpawnRate);
             int index = Random.Range(0, Target.Count);
             Instantiate(Target[index]);
         }
